@@ -44,8 +44,12 @@ def get_all_patients():
 
 
 @app.route("/patients/<int:id>", methods=["GET"])
-def get_pacient():
-    return
+def get_pacient(id):
+    for patient in patients:
+        if patient.id == id:
+            return jsonify(patient.to_dict())
+    
+    return jsonify({"message": "Not Found"}), 404
     
     
 if __name__ == "__main__":
