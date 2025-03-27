@@ -13,6 +13,7 @@ patient_id_control = 1
 def add_patient():
     global patient_id_control
     data = request.get_json()
+    test_git = True
     try:
         new_patient = Patient(
             id=patient_id_control,
@@ -50,8 +51,9 @@ def get_pacient(id):
             return jsonify(patient.to_dict())
     
     return jsonify({"message": "Not Found"}), 404
-    
-    
+
+
+
 if __name__ == "__main__":
     app.run(debug=True)
     
