@@ -4,6 +4,7 @@ from models.patients import Patient
 
 app = Flask(__name__)
 # CRUD
+# get, post, delete, patch, put
 
 patients = []
 patient_id_control = 1
@@ -52,6 +53,40 @@ def get_pacient(id):
     
     return jsonify({"message": "Not Found"}), 404
 
+    
+@app.route("/patients/<int:id>", methods=["PUT"])
+def update_patient(id):
+    data = request.get_json()
+    patient = None
+    for p in patients:
+        if p.id == id:
+            patient = p
+            
+    if patient == None:
+        return jsonify({"Message": "Patient Not Foud"}), 404
+    
+    p.name = data["name"]
+    p.age = data["age"]
+    p.description = data["description"]
+    p.room = data["room"]
+    p.discharge = data["discharge"]
+
+    return jsonify({"Message": "Uptade success"})
+
+
+@app.route("/patients/<int:id>", methods=["DELETE"])
+def remove_patient(id):
+    patient = None
+    for p in patients:
+        if p.id == id:
+            patient = p
+    
+    if not patient:
+        return jsonify({"Message": "Patient Not Found"}), 404
+
+    patients.remove(patient)
+    
+    return jsonify({"Message": "Patient Removed"})
 
 
 if __name__ == "__main__":
