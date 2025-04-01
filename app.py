@@ -61,6 +61,7 @@ def update_patient(id):
     for p in patients:
         if p.id == id:
             patient = p
+            break
             
     if patient == None:
         return jsonify({"Message": "Patient Not Foud"}), 404
@@ -80,6 +81,7 @@ def remove_patient(id):
     for p in patients:
         if p.id == id:
             patient = p
+            break
     
     if not patient:
         return jsonify({"Message": "Patient Not Found"}), 404
