@@ -26,8 +26,9 @@ def add_patient():
         )
         patient_id_control += 1
         patients.append(new_patient)
-        print(patients)
-        return jsonify({"message": "New Registered Patient"})
+        show_patient = [patient.name for patient in patients]
+        print(show_patient)
+        return jsonify({"message": "New Registered Patient", "id": new_patient.id})
     except:
         return "Error Something is Wrong"
 
@@ -64,7 +65,7 @@ def update_patient(id):
             break
             
     if patient == None:
-        return jsonify({"Message": "Patient Not Foud"}), 404
+        return jsonify({"message": "Patient Not Foud"}), 404
     
     p.name = data["name"]
     p.age = data["age"]
@@ -72,7 +73,7 @@ def update_patient(id):
     p.room = data["room"]
     p.discharge = data["discharge"]
 
-    return jsonify({"Message": "Uptade success"})
+    return jsonify({"message": "Uptade success", "id": p.id})
 
 
 @app.route("/patients/<int:id>", methods=["DELETE"])
@@ -84,11 +85,11 @@ def remove_patient(id):
             break
     
     if not patient:
-        return jsonify({"Message": "Patient Not Found"}), 404
+        return jsonify({"message": "Patient Not Found"}), 404
 
     patients.remove(patient)
     
-    return jsonify({"Message": "Patient Removed"})
+    return jsonify({"message": "Patient Removed"})
 
 
 if __name__ == "__main__":
